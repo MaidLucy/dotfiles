@@ -7,6 +7,7 @@ swaynag -t warning --font 'JetBrains Mono' --border-bottom $color2 --border-bott
 	-b 'poweroff' 'systemctl poweroff' \
 	-b 'hibernate' 'systemctl hibernate' \
 	-b 'reboot' 'systemctl reboot' \
+	-b 'kexec reboot' 'sudo kexec -l /boot/vmlinuz-linux --initrd=/boot/initramfs-linux.img --reuse-cmdline && sudo systemctl kexec' \
 	-b 'suspend' 'systemctl suspend' \
 	-b 'exit sway' 'swaymsg exit' \
 	-s 'abort'
