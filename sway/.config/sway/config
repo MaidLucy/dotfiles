@@ -197,7 +197,7 @@ mode "launch" {
 	bindsym p		exec pavucontrol			; mode "default"
 	bindsym l		exec libreoffice			; mode "default"
 	bindsym d		exec discord				; mode "default"
-	bindsym w		exec GDK_BACKEND=x11 whatsapp-nativefier		; mode "default"
+	bindsym w		exec whatsapp-nativefier		; mode "default"
 #	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
 	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
 	bindsym v		exec virt-manager				; mode "default"
