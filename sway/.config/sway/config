@@ -194,12 +194,10 @@ mode "launch" {
 	bindsym Ctrl+c		exec redshift -P -O 3500 -m wayland	; mode "default"
 	bindsym c		exec redshift -P -O 2800 -m wayland	; mode "default"
 	bindsym Shift+c		exec killall redshift; redshift -x -P -m wayland		; mode "default"
-	bindsym a		exec arandr				; mode "default"
 	bindsym p		exec pavucontrol			; mode "default"
 	bindsym l		exec libreoffice			; mode "default"
 	bindsym d		exec discord				; mode "default"
 	bindsym w		exec GDK_BACKEND=x11 whatsapp-nativefier		; mode "default"
-	bindsym s		workspace 3; exec " ydotool key Ctrl+t"		; mode "default"
 #	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
 	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
 	bindsym v		exec virt-manager				; mode "default"
@@ -233,11 +231,6 @@ client.background       $color2
 # set the wallpaper (note that this only works with the pywal specific configuration included)
 output * bg $wallpaper fill
 
-## output configuration
-#include "$HOME/.config/sway/kosaki.conf.d/display-4.conf"
-#include "$HOME/.config/sway/kosaki.conf.d/display-2.conf"
-#include "$HOME/.config/sway/kosaki.conf.d/display-TV.conf"
-
 ## bindings for program-launch
 # media keys
 bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 1%+
@@ -249,13 +242,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute echoCanel_sourc
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
 # screenshot
-#bindsym Ctrl+print exec --no-startup-id slurp | grim -s 1 -c -g - $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(hostname).png
 bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(hostname).png
 bindsym Ctrl+print      exec --no-startup-id screenshot.sh
 # other bindings
-bindsym $mod+p exec ~/.scripts/passmenu
+bindsym $mod+p 		exec passmenu-ydotool
 bindsym $mod+Period exec ~/.scripts/dmenuunicode.sh
-bindsym $mod+Shift+p exec ~/.scripts/url-in-mpv.sh
 # powermenu
 bindsym XF86PowerOff exec --no-startup-id powermenu
 
@@ -271,8 +262,6 @@ exec_always ~/.scripts/mako.sh
 # udiskie
 exec udiskie
 # other autostart
-#exec nextcloud
-#exec "sleep 1; protonmail-bridge"
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 include "$HOME/.config/sway/$(hostname).conf"
