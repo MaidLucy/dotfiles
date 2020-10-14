@@ -1,0 +1,279 @@
+# My custom configuration for sway. I used the default config provided in /etc/sway/ and changed it to fit my needs.
+#
+# Read `man 5 sway` for a complete reference.
+#
+
+## Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Your preferred terminal emulator
+#set $term termite
+set $term alacritty
+# Your preferred application launcher
+# Note: it's recommended that you pass the final command to sway
+set $menu wofi --show drun
+
+
+### Key bindings
+#
+# Basics:
+#
+    # start a terminal
+    bindsym $mod+Return exec $term
+
+    # kill focused window
+    bindsym $mod+Shift+q kill
+
+    # start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+    # or use scrollwheel
+    bindsym --whole-window $mod+button4 focus left
+    bindsym --whole-window $mod+button6 focus down
+    bindsym --whole-window $mod+button7 focus up
+    bindsym --whole-window $mod+button5 focus right
+    # focus left or right output
+    bindsym --whole-window $mod+button8 focus output left
+    bindsym --whole-window $mod+button9 focus output right
+
+    # _move_ the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+    # or use scrollwheel
+    bindsym --whole-window $mod+Shift+button6 move left
+    bindsym --whole-window $mod+Shift+button5 move down
+    bindsym --whole-window $mod+Shift+button4 move up
+    bindsym --whole-window $mod+Shift+button7 move right
+#
+#
+
+bindsym $mod+Tab workspace back_and_forth
+
+## Workspaces:
+# note that some of this in handled in the specific display.conf
+    # switch to workspace
+    #bindsym $mod+F1 workspace 1
+    #bindsym $mod+F2 workspace 2
+    #bindsym $mod+F3 workspace 3
+    #bindsym $mod+4 workspace 4
+    #bindsym $mod+5 workspace 5
+    #bindsym $mod+6 workspace 6
+    #bindsym $mod+7 workspace 7
+    #bindsym $mod+8 workspace 8
+    #bindsym $mod+9 workspace 9
+    #bindsym $mod+0 workspace 10
+
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+g splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # floating size
+    floating_minimum_size 200 x 200
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 30px
+    bindsym $down resize grow height 30px
+    bindsym $up resize shrink height 30px
+    bindsym $right resize grow width 30px
+
+    # ditto, with arrow keys
+    bindsym Left resize shrink width 30px
+    bindsym Down resize grow height 30px
+    bindsym Up resize shrink height 30px
+    bindsym Right resize grow width 30px
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "launch" {
+
+	bindsym f		exec MOZ_ENABLE_WAYLAND=1 firefox	; mode "default"
+	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox-nightly	; mode "default"
+	bindsym r		exec $term -e ~/.scripts/ranger.sh	; mode "default"
+	bindsym h		exec $term -e ~/.scripts/htop.sh	; mode "default"
+	bindsym m		exec termite -e ncmpcpp			; mode "default"
+	bindsym n		exec nautilus				; mode "default"
+	bindsym t		exec thunderbird			; mode "default"
+	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland QT_WAYLAND_DISABLE_WINDOWDECORATION=1 telegram-desktop	; mode "default"
+	bindsym Ctrl+c		exec redshift -P -O 3500 -m wayland	; mode "default"
+	bindsym c		exec redshift -P -O 2800 -m wayland	; mode "default"
+	bindsym Shift+c		exec killall redshift; redshift -x -P -m wayland		; mode "default"
+	bindsym a		exec arandr				; mode "default"
+	bindsym p		exec pavucontrol			; mode "default"
+	bindsym l		exec libreoffice			; mode "default"
+	bindsym d		exec discord				; mode "default"
+	bindsym w		exec GDK_BACKEND=x11 whatsapp-nativefier		; mode "default"
+	bindsym s		workspace 3; exec " ydotool key Ctrl+t"		; mode "default"
+#	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
+	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
+	bindsym v		exec virt-manager				; mode "default"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+Shift+d mode "default"
+}
+
+bindsym $mod+Shift+d mode "launch"
+
+## looks
+# font
+font JetBrains Mono 9
+
+# borders
+default_border pixel 3
+default_floating_border pixel 3
+
+## colormanagement
+# colorsceme
+include "$HOME/.cache/wal/colors-sway"
+## colors
+# class                 border      backgr.    text      indicator   child_border
+client.focused          $color2     $color2    $color7   $color2     $color2
+client.focused_inactive $color0     $color0    $color7   $color0     $color0
+client.unfocused        $color0     $color0    $color7   $color0     $color0
+client.urgent           $color2     $color2    $color7   $color2     $color2
+client.placeholder      $color2     $color2    $color7   $color2     $color2
+client.background       $color2
+# set the wallpaper (note that this only works with the pywal specific configuration included)
+output * bg $wallpaper fill
+
+## output configuration
+#include "$HOME/.config/sway/kosaki.conf.d/display-4.conf"
+#include "$HOME/.config/sway/kosaki.conf.d/display-2.conf"
+#include "$HOME/.config/sway/kosaki.conf.d/display-TV.conf"
+
+## bindings for program-launch
+# media keys
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 1%+
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 1%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
+bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute echoCanel_source toggle
+# Brightness control
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
+# screenshot
+#bindsym Ctrl+print exec --no-startup-id slurp | grim -s 1 -c -g - $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(hostname).png
+bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(hostname).png
+bindsym Ctrl+print      exec --no-startup-id screenshot.sh
+# other bindings
+bindsym $mod+p exec ~/.scripts/passmenu
+bindsym $mod+Period exec ~/.scripts/dmenuunicode.sh
+bindsym $mod+Shift+p exec ~/.scripts/url-in-mpv.sh
+# powermenu
+bindsym XF86PowerOff exec --no-startup-id powermenu
+
+
+# Status Bar
+bar {
+	swaybar_command waybar
+}
+
+## autostart
+# notification thingy
+exec_always ~/.scripts/mako.sh
+# udiskie
+exec udiskie
+# other autostart
+#exec nextcloud
+#exec "sleep 1; protonmail-bridge"
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+include "$HOME/.config/sway/$(hostname).conf"
+include /etc/sway/config.d/*
