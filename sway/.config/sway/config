@@ -86,7 +86,8 @@ set $menu wofi --show drun
 #
 #
 
-bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Tab 	workspace next_on_output
+bindsym $mod+Shift+Tab	workspace prev_on_output
 
 ## Workspaces:
 # note that some of this in handled in the specific display.conf
@@ -237,7 +238,7 @@ bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Mas
 bindsym Shift+XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 1%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
-bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute echoCanel_source toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute default toggle
 # Brightness control
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
@@ -258,11 +259,11 @@ bar {
 
 ## autostart
 # notification thingy
-exec_always ~/.scripts/mako.sh
+exec_always ~/.config/sway/mako.sh
 # udiskie
 exec udiskie
 # other autostart
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-include "$HOME/.config/sway/$(hostname).conf"
+include "$HOME/.config/sway/$(cat /etc/hostname).conf"
 include /etc/sway/config.d/*
