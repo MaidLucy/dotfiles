@@ -191,8 +191,9 @@ mode "launch" {
 	bindsym m		exec termite -e ncmpcpp			; mode "default"
 	bindsym n		exec nautilus				; mode "default"
 	bindsym t		exec thunderbird			; mode "default"
-	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland QT_WAYLAND_DISABLE_WINDOWDECORATION=1 telegram-desktop	; mode "default"
-	bindsym Ctrl+c		exec redshift -P -O 3500 -m wayland	; mode "default"
+	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland  telegram-desktop	; mode "default"
+	#bindsym Ctrl+c		exec redshift -P -O 3500 -m wayland	; mode "default"
+	bindsym Ctrl+c		exec wlsunset -l 49.1 -L 12.5		; mode "default"
 	bindsym c		exec redshift -P -O 2800 -m wayland	; mode "default"
 	bindsym Shift+c		exec killall redshift; redshift -x -P -m wayland		; mode "default"
 	bindsym p		exec pavucontrol			; mode "default"
@@ -231,6 +232,21 @@ client.placeholder      $color2     $color2    $color7   $color2     $color2
 client.background       $color2
 # set the wallpaper (note that this only works with the pywal specific configuration included)
 output * bg $wallpaper fill
+
+# gsettings
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'oomox-wal-oomox'
+    gsettings set $gnome-schema icon-theme 'oomox-wal-oomox'
+    gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
+    gsettings set $gnome-schema cursor-size '16'
+    gsettings set $gnome-schema font-name 'FreeSerif 12'
+    gsettings set $gnome-schema text-scaling-factor '1.0'
+}
+
+# cursor theme
+seat * xcursor_theme Breeze_Snow 16
 
 ## bindings for program-launch
 # media keys
