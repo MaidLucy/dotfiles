@@ -1,0 +1,5 @@
+#!/bin/bash
+
+output=$(basename -s .jpg $1)_smal.jpg
+convert $1 -resize 80% -quality 95% $output
+exiv2 rm $output
