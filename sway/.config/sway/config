@@ -185,7 +185,7 @@ bindsym $mod+r mode "resize"
 mode "launch" {
 
 	bindsym f		exec MOZ_ENABLE_WAYLAND=1 firefox	; mode "default"
-	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox-nightly	; mode "default"
+	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox -p oth	; mode "default"
 	bindsym r		exec $term -e ~/.scripts/ranger.sh	; mode "default"
 	bindsym h		exec $term -e ~/.scripts/htop.sh	; mode "default"
 	bindsym m		exec termite -e ncmpcpp			; mode "default"
@@ -201,6 +201,7 @@ mode "launch" {
 	bindsym d		exec discord				; mode "default"
 	bindsym w		exec whatsapp-nativefier		; mode "default"
 #	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
+	bindsym x		exec GDK_BACKEND=x11 xournalpp		; mode "default"
 	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
 	bindsym v		exec virt-manager				; mode "default"
 
@@ -218,6 +219,7 @@ font JetBrains Mono 9
 # borders
 default_border pixel 3
 default_floating_border pixel 3
+hide_edge_borders --i3 smart_no_gaps
 
 ## colormanagement
 # colorsceme
@@ -229,16 +231,19 @@ client.focused_inactive $color0     $color0    $color7   $color0     $color0
 client.unfocused        $color0     $color0    $color7   $color0     $color0
 client.urgent           $color2     $color2    $color7   $color2     $color2
 client.placeholder      $color2     $color2    $color7   $color2     $color2
-client.background       $color2
+client.background       $bg
 # set the wallpaper (note that this only works with the pywal specific configuration included)
-output * bg $wallpaper fill
+#output * bg $wallpaper fill
+#output * bg $color0 solid_color
+#output * bg "~/Pictures/wallpaper/86702882_p0_realsr4x_crop16-9.png" fill
+output * bg "~/Pictures/wallpaper/73766719_p1.jpg" fill
 
 # gsettings
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'oomox-wal-oomox'
-    gsettings set $gnome-schema icon-theme 'oomox-wal-oomox'
+    gsettings set $gnome-schema gtk-theme 'oomox-nord'
+    gsettings set $gnome-schema icon-theme 'oomox-nord'
     gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     gsettings set $gnome-schema cursor-size '16'
     gsettings set $gnome-schema font-name 'FreeSerif 12'
@@ -254,13 +259,17 @@ bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Mas
 bindsym Shift+XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 1%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
-bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute default toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute alsa_input.usb-BEHRINGER_UMC202HD_192k-00.iec958-stereo toggle
 # Brightness control
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
+
 # screenshot
-bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(hostname).png
-bindsym Ctrl+print      exec --no-startup-id screenshot.sh
+#bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(cat /etc/hostname).png
+bindsym print		exec --no-startup-id screenshot.sh everything
+bindsym Ctrl+print      exec --no-startup-id screenshot.sh region
+bindsym Shift+print     exec --no-startup-id screenshot.sh output
+
 # other bindings
 bindsym $mod+p 		exec passmenu-ydotool
 bindsym $mod+Period exec ~/.scripts/dmenuunicode.sh
