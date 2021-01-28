@@ -18,11 +18,12 @@ function muh_trep()
 
 time=$(date '+%Y-%m-%d_%H-%M-%S')
 pulse_device="alsa_output.usb-SMSL_SMSL_M6-00.iec958-stereo.monitor"
+crtc_id="69"
 
 trap muh_trap SIGINT
 
 # execute the processes and add their respective PIDs to the pids array
-ffmpeg -y -hide_banner -framerate 60 -crtc_id 49 -vsync 0 -device /dev/dri/card0 -vaapi_device /dev/dri/renderD128 -f kmsgrab -i - -vf 'hwmap,scale_vaapi=format=nv12' -c:v h264_vaapi -quality 15 -profile:v constrained_baseline -bf 0 -f mpegts osu-video-"$time".mpegts &
+ffmpeg -y -hide_banner -framerate 60 -crtc_id $crtc_id -vsync 0 -device /dev/dri/card0 -vaapi_device /dev/dri/renderD128 -f kmsgrab -i - -vf 'hwmap,scale_vaapi=format=nv12' -c:v h264_vaapi -quality 15 -profile:v constrained_baseline -bf 0 -f mpegts osu-video-"$time".mpegts &
 pids+=($!)
 ffmpeg -y -hide_banner -f pulse -i $pulse_device -c:a copy -f wav osu-audio-"$time".wav &
 pids+=($!)
