@@ -3,7 +3,7 @@
 UNIQUE_URL=$(pwgen -s 4 1)
 FILE=$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(cat /etc/hostname).png
 FILE_PATH=$(xdg-user-dir PICTURES)/Screenshots/$FILE
-WEB_PATH="/mnt/7TB/web_files/f"
+WEB_PATH="/mnt/build-cache/web_files/f"
 SCREENSHOT_DIR="/mnt/7TB/Pictures/Screenshots"
 SECOND_PATH=$SCREENSHOT_DIR/$FILE
 CURRENT_OUTPUT=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
