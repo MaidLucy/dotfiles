@@ -34,6 +34,10 @@ screenshot(){
     return 1
 }
 
+clipboard(){
+	wl-copy < $FILE_PATH && return 0
+}
+
 notify(){
     notify-send "took screenshot and saved to $FILE_PATH" && return 0
 }
@@ -44,4 +48,4 @@ upload" | wofi -d)
 }
 
 #slurp | grim -s $CURRENT_OUTPUT_SCALE -c -g - "$FILE_PATH" &&\
-screenshot $1 && notify && prompt
+screenshot $1 && notify && clipboard && prompt
