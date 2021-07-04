@@ -16,12 +16,13 @@ pulse_lowlatency(){
 	pactl unload-module $module_id
 	
 	# loading module again with lowest latency possible
-	new_module=$(pactl load-module module-alsa-card $device_id $name $card_name namereg_fail=false tsched=no fixed_latency_range=yes ignore_dB=no deferred_volume=yes use_ucm=yes card_properties="module-udev-detect.discovered=1" fragments=2 fragment_size=2)
+	new_module=$(pactl load-module module-alsa-card $device_id $name $card_name namereg_fail=false tsched=no fixed_latency_range=yes ignore_dB=no deferred_volume=yes use_ucm=yes card_properties="module-udev-detect.discovered=1" fragments=2 fragment_size=4)
 }
 
 input(){
-	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_to_output DP-2"
+	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_to_output DP-1"
 	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_from_region 0.0x0.0 0.45473688x0.405"
+	swaymsg "input * pointer_accel -0.2"
 }
 
 #renice -n -13 $$
@@ -35,7 +36,7 @@ osu_launch(){
 	#export WINEARCH=win32
 	export PATH=/opt/wine-osu/bin:$PATH
 
-	export STAGING_AUDIO_DURATION=10000
+	export STAGING_AUDIO_DURATION=40000
 	#export STAGING_AUDIO_DURATION=6500
 	export STAGING_RT_PRIORITY_SERVER=90
 	export STAGING_RT_PRIORITY_BASE=90
@@ -59,8 +60,9 @@ reset_pulse(){
 }
 
 reset_input(){
-	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_to_output DP-2"
+	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_to_output DP-1"
 	swaymsg "input 1386:782:Wacom_Intuos_S_Pen map_from_region 0.0x0.0 1.0x1.0"
+	swaymsg "input * pointer_accel 0"
 }
 
 pulse_lowlatency && input && $(printf "osu_launch \nlazer_launch" | fzf) $1 && reset_pulse 
