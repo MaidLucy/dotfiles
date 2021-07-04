@@ -20,6 +20,8 @@ set $term alacritty
 # Note: it's recommended that you pass the final command to sway
 set $menu wofi --show drun
 
+# disable xwayland
+#xwayland disable
 
 ### Key bindings
 #
@@ -199,13 +201,14 @@ mode "launch" {
 	bindsym p		exec pavucontrol			; mode "default"
 	bindsym l		exec libreoffice			; mode "default"
 	#bindsym d		exec discord				; mode "default"
-	bindsym d		exec electron12 --enable-features=UseOzonePlatform --ozone-platform=wayland /usr/lib/discord/app.asar.unpacked ; mode "default"
-	#bindsym w		exec whatsapp-nativefier		; mode "default"
-	bindsym w		exec electron12 --enable-features=UseOzonePlatform --ozone-platform=wayland /opt/whatsapp-nativefier/resources/app/ ; mode "default"
+	bindsym d		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /usr/lib/discord/app.asar.unpacked ; mode "default"
+	#bindsym d		exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer --app=https://discord.com/app ; mode "default"
+	bindsym w		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /opt/whatsapp-nativefier/resources/app/ ; mode "default"
 #	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
 	bindsym x		exec GDK_BACKEND=x11 xournalpp		; mode "default"
 	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
 	bindsym v		exec virt-manager				; mode "default"
+	bindsym BackSpace	exec powermenu				; mode "default"
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -244,11 +247,11 @@ output * bg $wallpaper fill
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'oomox-nord'
-    gsettings set $gnome-schema icon-theme 'oomox-nord'
+    gsettings set $gnome-schema gtk-theme 'oomox-catmaid-grey'
+    gsettings set $gnome-schema icon-theme 'oomox-catmaid-grey'
     gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     gsettings set $gnome-schema cursor-size '16'
-    gsettings set $gnome-schema font-name 'FreeSerif 12'
+    gsettings set $gnome-schema font-name 'FreeSerif 13'
     gsettings set $gnome-schema text-scaling-factor '1.0'
 }
 
@@ -278,6 +281,8 @@ bindsym $mod+Period exec ~/.scripts/dmenuunicode.sh
 # powermenu
 bindsym XF86PowerOff exec --no-startup-id powermenu
 
+# japanese input
+bindsym $mod+Ctrl+J exec ~/.local/bin/jap-input.sh
 
 # Status Bar
 bar {
