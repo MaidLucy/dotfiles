@@ -1,0 +1,130 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", 
+    "height": 24, 
+    // "width": 1366, 
+    // Choose the order of the modules
+    "output": ["DP-1", "HDMI-A-1"],
+    "modules-left": ["sway/workspaces", "sway/mode", "tray"],
+    //"modules-center": ["sway/window"],
+    "modules-center": ["mpd"],
+    "modules-right": ["custom/disk", "network", "cpu", "memory", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "TV",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/window": {
+	"max-length": 100,
+	"tooltip": false
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 5
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}",
+	"format": "{:%H:%M:%S}",
+	"interval": 1,
+	"tooltip": false
+    },
+    "cpu": {
+        "format": "cpu: {load}",
+	"tooltip": false
+    },
+    "memory": {
+        "format": "mem: {}%",
+	"tooltip": false
+    },
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+            // "good": 90,
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{capacity}% {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""],
+	"tooltip": false
+    },
+    "network": {
+        // "interface": "wlp2s0", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} {signaldBm}dBm ",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "format-disconnected": "Disconnected ⚠",
+	"interval": 5,
+	"on-click": "~/.scripts/networkmanager-dmenu.sh",
+	"tooltip": false
+    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "  ",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol",
+	"tooltip": false
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{artist} – {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+	"format-disconnected": "",
+	"format-stopped": "",
+	"interval": 2,
+	"consume-icons": {
+		"on": " " // Icon shows only when "consume" is on
+	},
+	"random-icons": {
+		"on": " "
+	},
+	"repeat-icons": {
+		"on": " "
+	},
+	"single-icons": {
+		"on": "1 "
+	},
+	"state-icons": {
+		"paused": "",
+		"playing": ""
+	},
+	"tooltip-format": "MPD (connected)",
+	"tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "custom/disk": {
+        "interval": 60,
+        "exec": "df -h / | awk 'NR==2{print $4}'",
+        "format": "/: {}"
+//    "disk": {
+//        "interval": "60",
+//        "format": "/: {free}",
+//        "path": "/"
+    }
+
+}
