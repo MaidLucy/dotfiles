@@ -15,7 +15,7 @@
 
 window#waybar {
     /*background: rgba(255, 255, 255, 0.8);*/
-    background: alpha(@background, 0.9);
+    background: alpha(@background, 0.95);
     color: @color7;
 }
 
