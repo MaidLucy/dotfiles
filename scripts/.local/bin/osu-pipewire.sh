@@ -35,6 +35,7 @@ reset_input(){
 	#swaymsg "input * pointer_accel 0"
 }
 
-input && $(printf "osu_launch \nlazer_launch" | fzf) $1 
+#input && $(printf "osu_launch \nlazer_launch" | fzf) $1 
+input && osu_launch $1 
 osu_kill
 reset_input
