@@ -18,7 +18,9 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu wofi --show drun
+#set $menu wofi --show drun
+set $menu ulauncher
+#set $menu nwggrid -client
 
 # disable xwayland
 #xwayland disable
@@ -116,6 +118,7 @@ bindsym $mod+Shift+Tab	workspace prev_on_output
     bindsym $mod+Shift+8 move container to workspace 8
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
+    bindsym $mod+Shift+ssharp move container to workspace 11
 
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
@@ -188,31 +191,21 @@ mode "launch" {
 
 	bindsym f		exec MOZ_ENABLE_WAYLAND=1 firefox	; mode "default"
 	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox -p oth	; mode "default"
-	bindsym r		exec $term -e ~/.scripts/ranger.sh	; mode "default"
-	bindsym h		exec $term -e ~/.scripts/htop.sh	; mode "default"
-	bindsym m		exec termite -e ncmpcpp			; mode "default"
 	bindsym n		exec nautilus				; mode "default"
 	bindsym t		exec thunderbird			; mode "default"
 	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland  telegram-desktop	; mode "default"
-	#bindsym Ctrl+c		exec redshift -P -O 3500 -m wayland	; mode "default"
 	bindsym Ctrl+c		exec wlsunset -l 49.1 -L 12.5		; mode "default"
-	bindsym c		exec redshift -P -O 2800 -m wayland	; mode "default"
-	bindsym Shift+c		exec killall redshift; redshift -x -P -m wayland		; mode "default"
 	bindsym p		exec pavucontrol			; mode "default"
 	bindsym l		exec libreoffice			; mode "default"
-	#bindsym d		exec discord				; mode "default"
 	bindsym d		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /usr/lib/discord/app.asar.unpacked ; mode "default"
-	#bindsym d		exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer --app=https://discord.com/app ; mode "default"
 	bindsym w		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /opt/whatsapp-nativefier/resources/app/ ; mode "default"
-#	bindsym w		exec GDK_BACKEND=x11 surf web.whatsapp.com	; mode "default"
 	bindsym x		exec GDK_BACKEND=x11 xournalpp		; mode "default"
-	bindsym j		exec _JAVA_AWT_WM_NONREPARENTING=1 jitsi	; mode "default"
-	bindsym v		exec virt-manager				; mode "default"
+    bindsym i       exec _JAVA_AWT_NONREPARENTING=1 idea; mode "default"
 	bindsym BackSpace	exec powermenu				; mode "default"
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+Shift+d mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+d mode "default"
 }
 
 bindsym $mod+Shift+d mode "launch"
@@ -247,8 +240,8 @@ output * bg $wallpaper fill
 set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'oomox-catmaid-grey'
-    gsettings set $gnome-schema icon-theme 'oomox-catmaid-grey'
+    gsettings set $gnome-schema gtk-theme 'oomox-märchenstadt'
+    gsettings set $gnome-schema icon-theme 'oomox-märchenstadt'
     gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     gsettings set $gnome-schema cursor-size '16'
     gsettings set $gnome-schema font-name 'FreeSerif 13'
@@ -268,6 +261,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute alsa_input.usb-
 # Brightness control
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
 bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
+# Media controls
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
 
 # screenshot
 #bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(cat /etc/hostname).png
@@ -287,13 +284,16 @@ bindsym $mod+Ctrl+J exec ~/.local/bin/jap-input.sh
 # Status Bar
 bar {
 	swaybar_command waybar
-}
+    }
+#
 
 ## autostart
 # notification thingy
 exec_always ~/.config/sway/mako.sh
 # udiskie
 exec udiskie
+# application launcher
+#exec nwggrid-server -f -o 0.9 -b e7e6e8
 # other autostart
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
