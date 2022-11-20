@@ -23,6 +23,6 @@ for plugin in tree.findall('Plugin'):
     for parameter in data.findall('Parameter'):
         symbol = parameter.find('Symbol').text
         value = parameter.find('Value').text
-        print('           "{}" = {}'.format(symbol, value))
+        print('            "{}" = {}'.format(symbol, value))
     print('''        }
     }''')

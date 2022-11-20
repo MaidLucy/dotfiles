@@ -3,4 +3,4 @@
 input=$1
 output=$(basename $1 .mkv)
 
-ffmpeg -i $input -c:a aac -b:a 128k -pix_fmt yuv420p -s 1280x720 -c:v libx264 -preset veryslow -crf 25 -profile high -tune animation "$output"_smal.mp4
+ffmpeg -i $input -c:a libvorbis -b:a 128k -pix_fmt yuv420p -s 1280x720 -c:v libx264 -preset veryslow -crf 24 -profile:v high "$output"_smal.mp4

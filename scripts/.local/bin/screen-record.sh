@@ -17,7 +17,7 @@ function muh_trep()
 }
 
 time=$(date '+%Y-%m-%d_%H-%M-%S')
-pulse_device="alsa_output.usb-SMSL_SMSL_M6-00.iec958-stereo.monitor"
+pulse_device=$2
 crtc_id=$1
 
 trap muh_trap SIGINT
