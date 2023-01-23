@@ -2,12 +2,44 @@
 
 . "${HOME}/.cache/wal/colors.sh"
 
-swaynag -t warning --font 'JetBrains Mono' --border-bottom $color2 --border-bottom-size 3 --background "$color0"F0 --border $color2 --button-background $color0 --text $color7 \
-	-m 'You pressed the power button.' \
-	-b 'poweroff' 'systemctl poweroff' \
-	-b 'hibernate' 'systemctl hibernate' \
-	-b 'reboot' 'systemctl reboot' \
-	-b 'kexec reboot' 'sudo kexec -l /boot/vmlinuz-linux --initrd=/boot/initramfs-linux.img --reuse-cmdline && sudo systemctl kexec' \
-	-b 'suspend' 'systemctl suspend' \
-	-b 'exit sway' 'swaymsg exit' \
-	-s 'abort'
+#swaynag -t warning --font 'JetBrains Mono' --border-bottom $color2 --border-bottom-size 3 --background "$color0"F0 --border $color2 --button-background $color0 --text $color7 \
+#	-m 'You pressed the power button.' \
+#	-b 'poweroff' 'systemctl poweroff' \
+#	-b 'hibernate' 'systemctl hibernate' \
+#	-b 'reboot' 'systemctl reboot' \
+#	-b 'kexec reboot' 'sudo kexec -l /boot/vmlinuz-linux --initrd=/boot/initramfs-linux.img --reuse-cmdline && sudo systemctl kexec' \
+#	-b 'suspend' 'systemctl suspend' \
+#	-b 'exit sway' 'swaymsg exit' \
+#	-s 'abort'
+
+poweroff () {
+    systemctl poweroff
+}
+
+suspend () {
+    systemctl suspend
+}
+
+hibernate () {
+    systemctl hibernate
+}
+
+reboot () {
+    systemctl reboot
+}
+
+kexec-reboot () {
+    sudo kexec -l /boot/vmlinuz-linux --initrd=/boot/initramfs-linux.img --reuse-cmdline && sudo systemctl kexec
+}
+
+exit-sway () {
+    swaymsg exit
+}
+
+$(echo """poweroff
+suspend
+hibernate
+reboot
+kexec-reboot
+exit-sway
+""" | tofi)
