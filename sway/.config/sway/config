@@ -15,12 +15,10 @@ set $right l
 
 # Your preferred terminal emulator
 #set $term termite
-set $term alacritty
+set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-#set $menu wofi --show drun
-set $menu ulauncher
-#set $menu nwggrid -client
+set $menu tofi-drun | xargs swaymsg exec --
 
 # disable xwayland
 #xwayland disable
@@ -192,15 +190,13 @@ mode "launch" {
 	bindsym f		exec MOZ_ENABLE_WAYLAND=1 firefox	; mode "default"
 	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox -p oth	; mode "default"
 	bindsym n		exec nautilus				; mode "default"
-	bindsym t		exec thunderbird			; mode "default"
 	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland  telegram-desktop	; mode "default"
 	bindsym Ctrl+c		exec wlsunset -l 49.1 -L 12.5		; mode "default"
 	bindsym p		exec pavucontrol			; mode "default"
 	bindsym l		exec libreoffice			; mode "default"
-	bindsym d		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /usr/lib/discord/app.asar.unpacked ; mode "default"
-	bindsym w		exec electron --enable-features=UseOzonePlatform --ozone-platform=wayland /opt/whatsapp-nativefier/resources/app/ ; mode "default"
-	bindsym x		exec GDK_BACKEND=x11 xournalpp		; mode "default"
+	bindsym x		exec xournalpp		; mode "default"
     bindsym i       exec _JAVA_AWT_NONREPARENTING=1 idea; mode "default"
+    bindsym r       exec kitty ranger; mode "default"
 	bindsym BackSpace	exec powermenu				; mode "default"
 
     bindsym Return mode "default"
@@ -212,7 +208,7 @@ bindsym $mod+Shift+d mode "launch"
 
 ## looks
 # font
-font JetBrains Mono 9
+font JetBrains Mono 11
 
 # borders
 default_border pixel 3
@@ -244,7 +240,7 @@ exec_always {
     gsettings set $gnome-schema icon-theme 'oomox-märchenstadt'
     gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
     gsettings set $gnome-schema cursor-size '16'
-    gsettings set $gnome-schema font-name 'FreeSerif 13'
+    gsettings set $gnome-schema font-name 'FreeSans 13'
     gsettings set $gnome-schema text-scaling-factor '1.0'
 }
 
@@ -291,7 +287,7 @@ bar {
 # notification thingy
 exec_always ~/.config/sway/mako.sh
 # udiskie
-exec udiskie
+exec udiskie -t -f ranger --terminal "$term" --menu-update-workaround
 # application launcher
 #exec nwggrid-server -f -o 0.9 -b e7e6e8
 # other autostart
