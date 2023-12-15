@@ -18,10 +18,12 @@ set $right l
 set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu tofi-drun | xargs swaymsg exec --
+set $font /usr/share/fonts/TTF/JetBrainsMono-Regular.ttf
+set $menu tofi-drun --font $font | xargs swaymsg exec --
 
 # disable xwayland
 #xwayland disable
+include "$HOME/.config/sway/$(cat /etc/hostname).conf.d/theme"
 
 ### Key bindings
 #
@@ -185,27 +187,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-mode "launch" {
-
-	bindsym f		exec MOZ_ENABLE_WAYLAND=1 firefox	; mode "default"
-	bindsym Shift+f		exec MOZ_ENABLE_WAYLAND=1 firefox -p oth	; mode "default"
-	bindsym n		exec nautilus				; mode "default"
-	bindsym Shift+t		exec QT_QPA_PLATFORM=wayland  telegram-desktop	; mode "default"
-	bindsym Ctrl+c		exec wlsunset -l 49.1 -L 12.5		; mode "default"
-	bindsym p		exec pavucontrol			; mode "default"
-	bindsym l		exec libreoffice			; mode "default"
-	bindsym x		exec xournalpp		; mode "default"
-    bindsym i       exec _JAVA_AWT_NONREPARENTING=1 idea; mode "default"
-    bindsym r       exec kitty ranger; mode "default"
-	bindsym BackSpace	exec powermenu				; mode "default"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+Shift+d mode "default"
-}
-
-bindsym $mod+Shift+d mode "launch"
-
 ## looks
 # font
 font JetBrains Mono 11
@@ -215,55 +196,28 @@ default_border pixel 3
 default_floating_border pixel 3
 hide_edge_borders --i3 smart_no_gaps
 
-## colormanagement
-# colorsceme
-include "$HOME/.cache/wal/colors-sway"
-## colors
-# class                 border      backgr.    text      indicator   child_border
-client.focused          $color2     $color2    $color7   $color2     $color2
-client.focused_inactive $color4E6     $color4E6    $color7   $color0     $color0E6
-client.unfocused        $color0E6     $color0E6    $color7   $color0     $color0E6
-client.urgent           $color3     $color3    $color7   $color2     $color2
-client.placeholder      $color2     $color2    $color7   $color2     $color2
-client.background       $bg
-# set the wallpaper (note that this only works with the pywal specific configuration included)
-output * bg $wallpaper fill
-#output * bg $color0 solid_color
-#output * bg "~/Pictures/wallpaper/86702882_p0_realsr4x_crop16-9.png" fill
-#output * bg "~/Pictures/wallpaper/73766719_p1.jpg" fill
-
-# gsettings
-set $gnome-schema org.gnome.desktop.interface
-
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'oomox-märchenstadt'
-    gsettings set $gnome-schema icon-theme 'oomox-märchenstadt'
-    gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
-    gsettings set $gnome-schema cursor-size '16'
-    gsettings set $gnome-schema font-name 'FreeSans 13'
-    gsettings set $gnome-schema text-scaling-factor '1.0'
-}
-
-# cursor theme
-seat * xcursor_theme Breeze_Snow 16
 
 ## bindings for program-launch
 # media keys
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 1%+
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 1%-
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%-
-bindsym XF86AudioMute exec --no-startup-id pactl set-source-mute alsa_input.usb-BEHRINGER_UMC202HD_192k-00.iec958-stereo toggle
-# Brightness control
-bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5 -steps 15
-bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5 -steps 15
-# Media controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym Pause exec --no-startup-id playerctl pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioForward exec --no-startup-id playerctl position 10+
+bindsym XF86AudioRewind exec --no-startup-id playerctl position 10-
+bindsym XF86Video [app_id="mpv"] focus
+
+# Brightness control
+bindsym XF86MonBrightnessDown	exec --no-startup-id brightnessctl --min-value=1 --exponent=4 s 5%-
+bindsym XF86MonBrightnessUp	exec --no-startup-id brightnessctl --min-value=1 --exponent=4 s 5%+
 
 # screenshot
-#bindsym print      exec --no-startup-id grim -s 1 -c $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y-%m-%d-%H%M%S')_$(cat /etc/hostname).png
 bindsym print		exec --no-startup-id screenshot.sh everything
 bindsym Ctrl+print      exec --no-startup-id screenshot.sh region
 bindsym Shift+print     exec --no-startup-id screenshot.sh output

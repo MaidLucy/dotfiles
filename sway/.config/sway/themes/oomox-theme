@@ -1,0 +1,22 @@
+include "$HOME/.cache/wal/colors-sway"
+
+# class                 border      backgr.    text      indicator   child_border
+client.focused          $color2     $color2    $color7   $color2     $color2
+client.focused_inactive $color0     $color0    $color7   $color0     $color0
+client.unfocused        $color0     $color0    $color7   $color0     $color0
+client.urgent           $color1     $color1    $color7   $color1     $color1
+client.placeholder      $color2     $color2    $color7   $color2     $color2
+
+client.background       $color2
+
+# gsettings
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'oomox-colors-oomox'
+    gsettings set $gnome-schema icon-theme 'oomox-colors-oomox'
+    gsettings set $gnome-schema cursor-theme 'Oxygen-19-Pink-Blossom'
+    gsettings set $gnome-schema font-name 'FreeSerif 13'
+    gsettings set $gnome-schema text-scaling-factor '1.0'
+}
+

@@ -1,0 +1,31 @@
+## colormanagement
+# colorsceme
+include "$HOME/.cache/wal/colors-sway"
+## colors
+# class                 border      backgr.    text      indicator   child_border
+client.focused          $color2     $color2    $color7   $color2     $color2
+client.focused_inactive $color4E6     $color4E6    $color7   $color0     $color0E6
+client.unfocused        $color0E6     $color0E6    $color7   $color0     $color0E6
+client.urgent           $color3     $color3    $color7   $color2     $color2
+client.placeholder      $color2     $color2    $color7   $color2     $color2
+client.background       $bg
+# set the wallpaper (note that this only works with the pywal specific configuration included)
+output * bg $wallpaper fill
+#output * bg $color0 solid_color
+#output * bg "~/Pictures/wallpaper/86702882_p0_realsr4x_crop16-9.png" fill
+#output * bg "~/Pictures/wallpaper/73766719_p1.jpg" fill
+
+# gsettings
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'oomox-märchenstadt'
+    gsettings set $gnome-schema icon-theme 'oomox-märchenstadt'
+    gsettings set $gnome-schema cursor-theme 'Breeze_Snow'
+    gsettings set $gnome-schema cursor-size '16'
+    gsettings set $gnome-schema font-name 'FreeSans 13'
+    gsettings set $gnome-schema text-scaling-factor '1.0'
+}
+
+# cursor theme
+seat * xcursor_theme Breeze_Snow 16
