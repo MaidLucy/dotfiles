@@ -1,0 +1,21 @@
+include ../../../../../Software/catppuccin/i3/themes/catppuccin-latte
+
+set $wallpaper "../../../../../Pictures/wallpaper/yande.re 576773 realsr4x.jpg"
+set $basecolor "#FFF3F3"
+set $font /usr/share/fonts/TTF/JetBrainsMono-Regular.ttf
+set $menu tofi-drun --font $font --text-color '$text' --background-color '#FFF3F3' --border-color '$maroon' --selection-color '$maroon' --selection-match-color '$rosewater' | xargs swaymsg exec --
+
+bindsym $mod+d exec $menu
+
+# target                 title     bg        text   indicator  border
+client.focused           $maroon $maroon $text  $rosewater $maroon
+client.focused_inactive  $overlay0 $overlay0 $text  $rosewater $overlay0
+client.unfocused         $base     $base     $text  $rosewater $base
+client.urgent            $peach    $base     $peach $overlay0  $peach
+client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
+client.background        $base
+
+output * bg $wallpaper fill
+
+# gsettings
+exec_always ~/.config/sway/themes/catppuccin-latte-maroon.sh

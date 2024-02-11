@@ -1,0 +1,21 @@
+include ../../../../../Software/catppuccin/i3/themes/catppuccin-latte
+
+set $wallpaper "../../../../../Pictures/wallpaper/78341619_p0_realsr4x.png"
+set $basecolor "#EFF9FE"
+set $font /usr/share/fonts/TTF/JetBrainsMono-Regular.ttf
+set $menu tofi-drun --font $font --text-color '$text' --background-color '#EFF9FE' --border-color '$sky' --selection-color '$sky' --selection-match-color '$sapphire' | xargs swaymsg exec --
+
+bindsym $mod+d exec $menu
+
+# target                 title     bg        text   indicator  border
+client.focused           $sky $sky $text  $blue $sky
+client.focused_inactive  $overlay0 $overlay0 $text  $blue $overlay0
+client.unfocused         $base     $base     $text  $blue $base
+client.urgent            $peach    $base     $peach $overlay0  $peach
+client.placeholder       $overlay0 $base     $text  $overlay0  $overlay0
+client.background        $base
+
+output * bg $wallpaper fill
+
+# gsettings
+exec_always ~/.config/sway/themes/catppuccin-latte-sky.sh

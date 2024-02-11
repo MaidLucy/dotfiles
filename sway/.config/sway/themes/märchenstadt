@@ -1,0 +1,21 @@
+set $wallpaper /home/kosaki/Pictures/wallpaper/81241050_p0_cut.jpg
+
+set $background #fcf8eb
+set $foreground #432F36
+
+set $color0 #fcf8eb
+set $color1 #EBCF70
+set $color2 #B39F95
+set $color3 #D8B191
+set $color4 #EBD59D
+set $color5 #EFD5AF
+set $color6 #EBD9C8
+set $color7 #432F36
+set $color8 #958e7c
+set $color9 #EBCF70
+set $color10 #B39F95
+set $color11 #D8B191
+set $color12 #EBD59D
+set $color13 #EFD5AF
+set $color14 #EBD9C8
+set $color15 #432F36

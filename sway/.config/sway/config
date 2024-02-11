@@ -18,12 +18,11 @@ set $right l
 set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $font /usr/share/fonts/TTF/JetBrainsMono-Regular.ttf
-set $menu tofi-drun --font $font | xargs swaymsg exec --
+#set $menu tofi-drun --font $font | xargs swaymsg exec --
 
 # disable xwayland
 #xwayland disable
-include "$HOME/.config/sway/$(cat /etc/hostname).conf.d/theme"
+#include "$HOME/.config/sway/$(cat /etc/hostname).conf.d/theme"
 
 ### Key bindings
 #
@@ -36,7 +35,7 @@ include "$HOME/.config/sway/$(cat /etc/hostname).conf.d/theme"
     bindsym $mod+Shift+q kill
 
     # start your launcher
-    bindsym $mod+d exec $menu
+    #bindsym $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
